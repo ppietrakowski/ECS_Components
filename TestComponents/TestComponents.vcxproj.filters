@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TestComponents.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TypeId.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

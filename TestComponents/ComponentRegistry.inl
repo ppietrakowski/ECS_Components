@@ -47,7 +47,7 @@ inline void ComponentRegistry::RemoveComponent(int Id)
     assert(Components.find(typeId) != Components.end() && "Registry doesn't contain container of T data");
 
     ComponentHolder& holder = Components[typeId];
-    holder.RemoveComponent<T>(Id);
+    holder.RemoveComponent(Id);
 }
 
 template <typename T>
