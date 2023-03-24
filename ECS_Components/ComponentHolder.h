@@ -19,16 +19,15 @@ public:
     ComponentHolder& operator=(ComponentHolder&&) noexcept = default;
     ComponentHolder& operator=(const ComponentHolder&) = delete;
 
-    template <typename T>
-    void PushNewComponent(int Id);
+    void PushNewComponent(int id);
 
-    template <typename T>
-    T& GetComponent(int Id);
+    template <typename TComponent>
+    TComponent& GetComponent(int id);
 
-    template <typename T>
-    bool HasComponent(int Id) const;
+    template <typename TComponent>
+    bool HasComponent(int id) const;
 
-    void RemoveComponent(int Id);
+    void RemoveComponent(int id);
 
     size_t GetSize() const;
 
@@ -47,6 +46,9 @@ private:
     std::function<void(int id)> PushFunc;
     std::function<void(int id)> RemoveFunc;
     int TypeId;
+
+    template <typename TComponent>
+    void AssignType();
 };
 
 #include "ComponentHolder.inl"

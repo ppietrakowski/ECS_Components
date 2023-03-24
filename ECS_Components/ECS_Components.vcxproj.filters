@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="ComponentRegistry.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="TypeId.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentHolder.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ComponentHolder.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentRegistry.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeId.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="View.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ComponentHolder.inl">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="ComponentRegistry.inl">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="View.inl">
+      <Filter>Source</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{acd68959-6652-4ea8-885e-9e53fe41a1ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{1d2a8e1e-3d62-4ffb-b805-736be07bba61}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

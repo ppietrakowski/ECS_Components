@@ -1,63 +1,60 @@
 #include "ComponentRegistry.h"
 
-template <typename T>
-inline View<T> ComponentRegistry::GetView()
+template <typename TComponent>
+inline View<TComponent> ComponentRegistry::GetView()
 {
-    View<T> view(&Entities, &GetComponentHolder<T>());
+    View<TComponent> view(&Entities, &GetComponentHolder<TComponent>());
     return view;
 }
 
-template <typename T>
-inline T& ComponentRegistry::AddNewComponent(int Id)
+template <typename TComponent>
+inline TComponent& ComponentRegistry::AddNewComponent(int id)
 {
-    ComponentHolder& holder = GetComponentHolder<T>();
-    holder.PushNewComponent<T>(Id);
+    ComponentHolder& holder = GetComponentHolder<TComponent>();
+    holder.PushNewComponent(id);
 
-    return holder.GetComponent<T>(Id);
+    return holder.GetComponent<TComponent>(id);
 }
 
-template <typename T>
-inline T& ComponentRegistry::GetComponent(int Id)
+template <typename TComponent>
+inline TComponent& ComponentRegistry::GetComponent(int id)
 {
-    int typeId = GetTypeId<T>();
-
-    if (Components.find(typeId) == Components.end())
-    {
-        Components.insert({ typeId, ComponentHolder{} });
-    }
+    int typeId = GetTypeId<TComponent>();
+    assert(Components.find(typeId) != Components.end());
 
     ComponentHolder& holder = Components[typeId];
-    return holder.GetComponent<T>(Id);
+    return holder.GetComponent<TComponent>(id);
 }
 
-template <typename T>
-inline bool ComponentRegistry::HasComponent(int Id) const
+template <typename TComponent>
+inline bool ComponentRegistry::HasComponent(int id) const
 {
-    int typeId = GetTypeId<T>();
+    int typeId = GetTypeId<TComponent>();
     assert(Components.find(typeId) != Components.end() && "Registry doesn't contain container of T data");
 
     const ComponentHolder& holder = Components.at(typeId);
-    return holder.HasComponent<T>(Id);
+    return holder.HasComponent<TComponent>(id);
 }
 
-template<typename T>
-inline void ComponentRegistry::RemoveComponent(int Id)
+template<typename TComponent>
+inline void ComponentRegistry::RemoveComponent(int id)
 {
-    int typeId = GetTypeId<T>();
+    int typeId = GetTypeId<TComponent>();
     assert(Components.find(typeId) != Components.end() && "Registry doesn't contain container of T data");
 
     ComponentHolder& holder = Components[typeId];
-    holder.RemoveComponent(Id);
+    holder.RemoveComponent(id);
 }
 
-template <typename T>
+template <typename TComponent>
 inline ComponentHolder& ComponentRegistry::GetComponentHolder()
 {
-    int typeId = GetTypeId<T>();
+    int typeId = GetTypeId<TComponent>();
 
     if (Components.find(typeId) == Components.end())
     {
         Components.insert({ typeId, ComponentHolder{} });
+        Components[typeId].AssignType<TComponent>();
     }
 
     return Components[typeId];
