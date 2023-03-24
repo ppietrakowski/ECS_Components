@@ -23,27 +23,33 @@ int main()
 {
     ComponentRegistry registry;
 
-    int NewId = registry.RegisterNewEntity();
-
-    registry.AddNewComponent<JustData>(NewId);
-    registry.AddNewComponent<tm>(NewId);
-
-    if (registry.HasComponent<tm>(NewId))
+    while (true)
     {
-        tm& t = registry.GetComponent<tm>(NewId);
-        std::cout << t.tm_year << " ";
-        std::cout << registry.GetComponent<JustData>(NewId).Data << "\n";
-    }
 
-    View<JustData> data = registry.GetView<JustData>();
+        int NewId = registry.RegisterNewEntity();
 
-    data.ForEach([](int i, JustData& component)
-    {
-        std::cout << i << "=> health=" << component.Health << " " << component.Data << std::endl;
-    });
+        registry.AddNewComponent<JustData>(NewId);
+        registry.AddNewComponent<tm>(NewId);
 
-    for (std::pair<const int, JustData>& d : data)
-    {
-        std::cout << d.first << "=> health=" << d.second.Health << " " << d.second.Data << std::endl;
+        if (registry.HasComponent<tm>(NewId))
+        {
+            tm& t = registry.GetComponent<tm>(NewId);
+            std::cout << t.tm_year << " ";
+            std::cout << registry.GetComponent<JustData>(NewId).Data << "\n";
+        }
+
+        View<JustData> data = registry.GetView<JustData>();
+
+        data.ForEach([](int i, JustData& component)
+        {
+            std::cout << i << "=> health=" << component.Health << " " << component.Data << std::endl;
+        });
+
+        for (std::pair<const int, JustData>& d : data)
+        {
+            std::cout << d.first << "=> health=" << d.second.Health << " " << d.second.Data << std::endl;
+        }
+
+        registry.ReleaseId(NewId);
     }
 }

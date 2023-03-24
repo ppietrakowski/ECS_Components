@@ -27,7 +27,6 @@ public:
     template <typename T>
     bool HasComponent(int Id) const;
 
-    template <typename T>
     void RemoveComponent(int Id);
 
     size_t GetSize() const;
@@ -45,6 +44,7 @@ private:
 
     Holder Components;
     std::function<void(int id)> PushFunc;
+    std::function<void(int id)> RemoveFunc;
     int TypeId;
 };
 

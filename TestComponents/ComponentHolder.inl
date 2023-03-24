@@ -2,6 +2,7 @@
 
 inline ComponentHolder::ComponentHolder() :
     PushFunc([](int id) {}),
+    RemoveFunc([](int id) {}),
     TypeId(INVALID_TYPE_ID)
 {
 }
@@ -15,6 +16,12 @@ inline void ComponentHolder::PushNewComponent(int Id)
         {
             std::map<int, T>& d = reinterpret_cast<std::map<int, T>&>(Components);
             d.insert({ id, T{} });
+        };
+
+        RemoveFunc = [this](int id)
+        {
+            std::map<int, T>& d = reinterpret_cast<std::map<int, T>&>(Components);
+            d.erase(id);
         };
 
         TypeId = GetTypeId<T>();
@@ -45,13 +52,10 @@ inline bool ComponentHolder::HasComponent(int Id) const
     return d->find(Id) != d->end();
 }
 
-template<typename T>
 inline void ComponentHolder::RemoveComponent(int Id)
 {
     assert(TypeId != INVALID_TYPE_ID && "Not component data assigned");
-    assert(TypeId == GetTypeId<T>() && "Invalid type of container");
-
-    Components.erase(Id);
+    RemoveFunc(Id);
 }
 
 inline size_t ComponentHolder::GetSize() const

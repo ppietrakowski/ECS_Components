@@ -22,6 +22,8 @@ public:
 
     template <typename T>
     void RemoveComponent(int Id);
+
+    void ReleaseId(int id);
 private:
     std::map<int, ComponentHolder> Components;
     std::vector<int> Entities;
