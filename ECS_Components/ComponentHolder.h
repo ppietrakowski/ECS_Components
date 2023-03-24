@@ -11,6 +11,7 @@ class ComponentHolder
 
 public:
     ComponentHolder();
+    ~ComponentHolder();
 
     ComponentHolder(ComponentHolder&&) noexcept = default;
     ComponentHolder(const ComponentHolder&) = delete;

@@ -7,6 +7,16 @@ inline ComponentHolder::ComponentHolder() :
 {
 }
 
+inline ComponentHolder::~ComponentHolder()
+{
+    for (auto& [id, dummy] : Components)
+    {
+        RemoveFunc(id);
+    }
+
+    Components.clear();
+}
+
 template <typename T>
 inline void ComponentHolder::PushNewComponent(int Id)
 {
